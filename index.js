@@ -36,20 +36,6 @@ app.post('/webhook', express.json(),  function (req, res) {
     }
   }
 
-  async function preguntaANimo(agent) {
-    const tipoPan = agent.parameters.tipoPan
-    console.log(tipoPan);
-    if (tipoPan.includes("telera") ) {
-      const query = { nombre: 'Telera' };
-      const pan = await panes.findOne(query);
-      agent.add(pan.descripcion)
-    } else if (tipoPan.includes("bolillo") ){
-      const query = { nombre: 'Bolillo' };
-      const pan = await panes.findOne(query);
-      agent.add(pan.descripcion)
-    }
-  }
-
   var intentMap = new Map();
   intentMap.set('Pan Salado Telera Intent', PanSaladoTeleraIntent);
   agent.handleRequest(intentMap);
