@@ -5,7 +5,8 @@ app.use(bodyParser.json());
 const { WebhookClient } = require('dialogflow-fulfillment');
 
 const { MongoClient } = require("mongodb");
-const uri = "mongodb+srv://carlosjct:g8594rKaG8apWl58@cluster0.1aoqeux.mongodb.net/?retryWrites=true&w=majority";
+
+const uri = "mongodb+srv://carlosjct:9ytZgvfNMlksEEei@cluster0.1aoqeux.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 client.connect();
 const database = client.db('chatbotEjemplo');
@@ -17,12 +18,11 @@ app.get("/", function (req, res) {
 });
 
 app.post('/webhook', express.json(),  function (req, res) {
-  const agent = new WebhookClient({ request: req, response: res });
-  //console.log('Dialogflow Request headers: ' + JSON.stringify(req.headers));
-  //console.log('Dialogflow Request body: ' + JSON.stringify(req.body));
 
-  
+  const agent = new WebhookClient({ request: req, response: res });
+
   async function PanSaladoTeleraIntent(agent) {
+
     const tipoPan = agent.parameters.tipoPan
     console.log(tipoPan);
     if (tipoPan.includes("telera") ) {
