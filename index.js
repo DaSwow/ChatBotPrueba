@@ -10,7 +10,7 @@ const uri = "mongodb+srv://carlosjct:9ytZgvfNMlksEEei@cluster0.1aoqeux.mongodb.n
 const client = new MongoClient(uri);
 client.connect();
 const database = client.db('chatbotEjemplo');
-const panes = database.collection('pan');
+const informacion = database.collection('informacion');
 
 
 app.get("/", function (req, res) {
@@ -21,23 +21,22 @@ app.post('/webhook', express.json(),  function (req, res) {
 
   const agent = new WebhookClient({ request: req, response: res });
 
-  async function PanSaladoTeleraIntent(agent) {
-
-    const tipoPan = agent.parameters.tipoPan
-    console.log(tipoPan);
-    if (tipoPan.includes("telera") ) {
-      const query = { nombre: 'Telera' };
-      const pan = await panes.findOne(query);
-      agent.add(pan.descripcion)
-    } else if (tipoPan.includes("bolillo") ){
-      const query = { nombre: 'Bolillo' };
-      const pan = await panes.findOne(query);
-      agent.add(pan.descripcion)
+  async function InformacionIntent(agent) {
+    
+    const tipo = agent.parameters.tipo
+    if (tipo.includes("demencia") ) {
+      const query = { nombre: 'Demencia' };
+      const info = await informacion.findOne(query);
+      agent.add(info.descripcion)
+    } else if (tipo.includes("alzheimer") ){
+      const query = { nombre: 'Alzheimer' };
+      const info = await informacion.findOne(query);
+      agent.add(info.descripcion)
     }
   }
 
   var intentMap = new Map();
-  intentMap.set('Pan Salado Telera Intent', PanSaladoTeleraIntent);
+  intentMap.set('Informacion Intent', InformacionIntent);
   agent.handleRequest(intentMap);
 });
 
