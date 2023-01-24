@@ -6,7 +6,10 @@ const { WebhookClient } = require('dialogflow-fulfillment');
 
 const { MongoClient } = require("mongodb");
 
-const uri = "mongodb+srv://carlosjct:9ytZgvfNMlksEEei@cluster0.1aoqeux.mongodb.net/?retryWrites=true&w=majority";
+const uri = "
+//obtener la URI de mongodb ATLAS y pegarla aqui
+"
+;
 const client = new MongoClient(uri);
 client.connect();
 const database = client.db('chatbotEjemplo');
